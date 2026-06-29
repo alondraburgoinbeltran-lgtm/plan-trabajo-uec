@@ -1,3 +1,50 @@
 @media(max-width:1100px){.topbar{align-items:flex-start;flex-direction:column}.compact-filters{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.gauge-card{grid-template-columns:1fr}.gauge-wrap{height:230px}.department-grid{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:1fr}.section-heading{display:block}.traffic-summary{grid-template-columns:1fr 1fr 1fr}}@media(max-width:760px){.main{padding:14px}.brand-title{align-items:flex-start}.brand-title img{width:54px;height:54px}.topbar h1{font-size:20px}.topbar span{display:block}.compact-filters{grid-template-columns:1fr}.gauge-card{padding:20px;border-radius:24px}.gauge-copy h2{font-size:24px}.gauge-number strong{font-size:42px}.kpi-grid.three,.department-grid,.traffic-summary{grid-template-columns:1fr}.detail-toolbar{align-items:flex-start;flex-direction:column}.clear-btn.secondary{width:100%}.mini-row{grid-template-columns:1fr;gap:6px}.mini-pct{text-align:left!important}.login-card{padding:24px}.login-card h1{font-size:24px}}
 @media (max-width: 1100px){.kpi-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}.department-grid{grid-template-columns:1fr}.department-card.gauge-dept{min-height:250px}.dept-gauge-wrap{height:140px}}
 @media (max-width: 620px){.kpi-grid.four{grid-template-columns:1fr}.goal-calendar-head{display:block}.goal-months{grid-auto-columns:98px}.department-card.gauge-dept h3{font-size:19px}}
+/* =========================
+   MODO IMPRESIÓN / PDF
+========================= */
+
+@media print{
+
+  @page{
+    size: landscape;
+    margin:10mm;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  /* Ocultar elementos que no deben imprimirse */
+
+  .login-screen,
+  .filters-panel,
+  .secondary-filter-bar,
+  #pdfBtn,
+  #clearFilters,
+  #backToGeneral,
+  .modal{
+    display:none !important;
+  }
+
+  .app-shell{
+    padding:0;
+  }
+
+  .main{
+    width:100%;
+    max-width:none;
+    gap:14px;
+  }
+
+  .gauge-card,
+  .goal-calendar,
+  .department-card,
+  .chart-card,
+  .table-card{
+    break-inside:avoid;
+    box-shadow:none;
+  }
+
+}
