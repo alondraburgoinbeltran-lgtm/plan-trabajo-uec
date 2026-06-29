@@ -145,16 +145,29 @@ function render(){
 }
 
 async function boot(){
+
   Sections.init();
-  const back=document.getElementById('backToGeneral');
-  if(back) back.onclick=hideDepartmentDetail;
-  const closeModal=document.getElementById('closeKpiModal');
-if(closeModal) closeModal.onclick=()=>document.getElementById('kpiModal').classList.add('hidden');
+
+  const back = document.getElementById('backToGeneral');
+  if(back) back.onclick = hideDepartmentDetail;
+
+  const pdfBtn = document.getElementById('pdfBtn');
+  if(pdfBtn){
+    pdfBtn.onclick = () => window.print();
+  }
+
+  const closeModal = document.getElementById('closeKpiModal');
+  if(closeModal){
+    closeModal.onclick = () =>
+      document.getElementById('kpiModal').classList.add('hidden');
+  }
 
 const modal=document.getElementById('kpiModal');
 if(modal) modal.addEventListener('click',e=>{
   if(e.target.id==='kpiModal') modal.classList.add('hidden');
 });
+
+  
   const isLogged=sessionStorage.getItem('uec_auth')==='true';
   if(isLogged){ document.getElementById('login').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); await loadDashboard(); }
   document.getElementById('loginBtn').onclick=async()=>{
