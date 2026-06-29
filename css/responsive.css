@@ -48,3 +48,82 @@
   }
 
 }
+
+/* =========================
+   MODO PDF AUTOMÁTICO
+========================= */
+
+.pdf-mode .main{
+  width:1600px!important;
+  max-width:1600px!important;
+  gap:10px!important;
+}
+
+.pdf-mode .topbar{
+  position:static!important;
+}
+
+.pdf-mode .filters-panel,
+.pdf-mode .secondary-filter-bar,
+.pdf-mode #pdfBtn,
+.pdf-mode #clearFilters,
+.pdf-mode .modal,
+.pdf-mode #departmentDetail{
+  display:none!important;
+}
+
+.pdf-mode .gauge-card{
+  padding:16px!important;
+  grid-template-columns:1fr 420px!important;
+}
+
+.pdf-mode .gauge-wrap{
+  min-height:180px!important;
+}
+
+.pdf-mode .gauge-wrap canvas{
+  height:180px!important;
+}
+
+.pdf-mode .goal-calendar{
+  padding:14px!important;
+  gap:10px!important;
+}
+
+.pdf-mode .goal-months{
+  grid-template-columns:repeat(9,1fr)!important;
+  overflow:hidden!important;
+  gap:8px!important;
+}
+
+.pdf-mode .goal-month{
+  min-height:68px!important;
+  padding:6px!important;
+}
+
+.pdf-mode .kpi-grid.four{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:10px!important;
+}
+
+.pdf-mode .kpi-card{
+  padding:12px!important;
+}
+
+.pdf-mode .department-grid{
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:10px!important;
+}
+
+.pdf-mode .department-card.gauge-dept{
+  min-height:210px!important;
+  padding:12px!important;
+}
+
+.pdf-mode .dept-gauge-wrap{
+  height:120px!important;
+}
+
+.pdf-mode .section-heading{
+  padding:12px!important;
+}
