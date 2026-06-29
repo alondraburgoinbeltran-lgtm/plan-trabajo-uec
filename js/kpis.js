@@ -36,3 +36,4 @@ renderTraffic(rows);
 }
   return { render, calc, isCompleted, isRiskLow, progressValue };
 })();
+
