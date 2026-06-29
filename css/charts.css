@@ -1,0 +1,1 @@
+.chart-card,.table-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.chart-card h2,.table-card h2{font-size:18px;font-weight:600;margin:0 0 16px;color:var(--navy)}.chart-card canvas{min-height:280px}
