@@ -1,5 +1,6 @@
 let ALL_ROWS=[];
 let ACTIVE_DEPARTMENT='';
+let GOAL_GROUPS={};
 
 function escapeHtml(v){
   return String(v ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
@@ -24,7 +25,36 @@ function renderGoalCalendar(rows){
     const ia=monthOrder.indexOf(String(a).toUpperCase()), ib=monthOrder.indexOf(String(b).toUpperCase());
     return (ia<0?99:ia)-(ib<0?99:ib) || String(a).localeCompare(String(b),'es');
   });
-  el.innerHTML=`<div class="goal-calendar-head"><p class="eyebrow">Vencimientos por meta</p><strong>Mini-calendario horizontal</strong></div><div class="goal-months">${keys.map(k=>`<article class="goal-month"><span>${escapeHtml(k)}</span><strong>${Utils.fmt(grouped[k].length)}</strong></article>`).join('')}</div>`;
+  GOAL_GROUPS=grouped;
+
+  if(!keys.length){
+    el.innerHTML='<div class="goal-calendar-head"><h2>Vencimientos por meta</h2></div><div class="empty-state">No hay vencimientos con los filtros seleccionados.</div>';
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="goal-calendar-head">
+      <h2>Vencimientos por meta</h2>
+      <span>Selecciona un mes para ver sus actividades</span>
+    </div>
+    <div class="goal-months">
+      ${keys.map(k=>`<button class="goal-month" type="button" data-goal="${escapeHtml(k)}" aria-label="Ver actividades de ${escapeHtml(k)}"><span>${escapeHtml(k)}</span><strong>${Utils.fmt(grouped[k].length)}</strong><small>actividades</small></button>`).join('')}
+    </div>`;
+
+  el.querySelectorAll('.goal-month').forEach(btn=>{
+    btn.addEventListener('click',()=>openGoalModal(btn.dataset.goal));
+  });
+}
+
+function openGoalModal(goal){
+  const rows=GOAL_GROUPS[goal] || [];
+  const modal=document.getElementById('kpiModal');
+  const title=document.getElementById('kpiModalTitle');
+  const eyebrow=document.getElementById('kpiModalEyebrow');
+  if(eyebrow) eyebrow.textContent='Vencimientos por meta';
+  if(title) title.textContent=`Actividades con meta: ${goal}`;
+  if(modal) modal.classList.remove('hidden');
+  Tables.renderTable(rows,'kpiModalBody');
 }
 
 function getKpiRows(type, rows){
@@ -45,6 +75,8 @@ function openKpiModal(type){
     zero:'Actividades sin avance reportado'
   };
 
+  const eyebrow=document.getElementById('kpiModalEyebrow');
+  if(eyebrow) eyebrow.textContent='Detalle de actividades';
   document.getElementById('kpiModalTitle').textContent=titles[type] || 'Actividades';
   document.getElementById('kpiModal').classList.remove('hidden');
   Tables.renderTable(filtered,'kpiModalBody');
