@@ -28,6 +28,11 @@ const Kpis = (() => {
     ['Por vencer', Utils.fmt(k.due), 'Atención preventiva', ''],
     ['Fuera de tiempo', Utils.fmt(k.late), 'Riesgo alto', ''],
     ['Sin avance reportado', Utils.fmt(k.zero), 'Actividades con avance 0%', 'amber']
-  ]; const grid=document.getElementById('kpiGrid'); if(grid) grid.innerHTML=cards.map(c=>`<article class="kpi-card ${c[3]}"><p>${c[0]}</p><strong>${c[1]}</strong><small>${c[2]}</small></article>`).join(''); renderTraffic(rows); }
+ ]; 
+const types=['completed','due','late','zero'];
+const grid=document.getElementById('kpiGrid'); 
+if(grid) grid.innerHTML=cards.map((c,i)=>`<article class="kpi-card ${c[3]}" data-kpi="${types[i]}"><p>${c[0]}</p><strong>${c[1]}</strong><small>${c[2]}</small></article>`).join(''); 
+renderTraffic(rows); 
+}
   return { render, calc, isCompleted, isRiskLow, progressValue };
 })();
