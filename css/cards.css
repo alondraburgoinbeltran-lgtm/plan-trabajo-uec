@@ -36,7 +36,27 @@
   width:110px;
   height:110px;
   border-radius:50%;
-  background:rgba(0,88,75,.10);
+  background:rgba(0,88,75,.10); /* Verde por defecto */
+}
+
+/* Completadas */
+.kpi-card.green:before{
+  background:rgba(22,163,74,.14);
+}
+
+/* Por vencer */
+.kpi-card.yellow:before{
+  background:rgba(245,158,11,.18);
+}
+
+/* Fuera de tiempo */
+.kpi-card.red:before{
+  background:rgba(220,38,38,.15);
+}
+
+/* Sin avance reportado */
+.kpi-card.amber:before{
+  background:rgba(37,99,235,.14);
 }
 
 .kpi-card:hover{
