@@ -189,7 +189,7 @@ if(pdfBtn){
       imgHeight
     );
 
-    window.open(pdf.output("bloburl"),"_blank");
+    pdf.save("Plan_de_Trabajo_UEC.pdf");
 
   };
 
