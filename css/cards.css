@@ -27,36 +27,32 @@
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 
-/* Círculo decorativo superior derecho */
-.kpi-card:before{
-  content:"";
-  position:absolute;
-  right:-30px;
-  top:-30px;
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  background:rgba(0,88,75,.10);
-}
+/* =========================
+   CÍRCULO DECORATIVO KPI
+========================= */
 
 /* Completadas */
 .kpi-card.green:before{
-  background:rgba(22,163,74,.16);
+  background:#219E18;
+  opacity:.22;
 }
 
 /* Por vencer */
 .kpi-card.yellow:before{
-  background:rgba(245,158,11,.18);
+  background:#FCFF4D;
+  opacity:.28;
 }
 
 /* Fuera de tiempo */
 .kpi-card.red:before{
-  background:rgba(220,38,38,.16);
+  background:#E0313F;
+  opacity:.22;
 }
 
 /* Sin avance reportado */
 .kpi-card.blue:before{
-  background:rgba(37,99,235,.16);
+  background:#31BDE0;
+  opacity:.22;
 }
 
 .kpi-card:hover{
