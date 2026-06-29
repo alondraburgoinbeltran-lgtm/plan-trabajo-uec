@@ -23,12 +23,13 @@ const Kpis = (() => {
     if(!el) return;
     el.innerHTML=[['green','Verde 80-100',green],['amber','Ámbar 40-79',amber],['red','Rojo 0-39',red]].map(x=>`<article class="traffic-item"><div class="traffic-left"><span class="dot ${x[0]}"></span><p>${x[1]}</p></div><strong>${Utils.fmt(x[2])}</strong></article>`).join('');
   }
-  function render(rows){ const k=calc(rows); const cards=[
-    ['Completadas', Utils.fmt(k.completed), '100% o completado en tiempo', ''],
-    ['Por vencer', Utils.fmt(k.due), 'Atención preventiva', ''],
-    ['Fuera de tiempo', Utils.fmt(k.late), 'Riesgo alto', ''],
-    ['Sin avance reportado', Utils.fmt(k.zero), 'Actividades con avance 0%', 'amber']
- ]; 
+  function render(rows){ const k=calc(rows); 
+    const cards=[
+  ['Completadas', Utils.fmt(k.completed), '100% o completado en tiempo', 'green'],
+  ['Por vencer', Utils.fmt(k.due), 'Atención preventiva', 'yellow'],
+  ['Fuera de tiempo', Utils.fmt(k.late), 'Riesgo alto', 'red'],
+  ['Sin avance reportado', Utils.fmt(k.zero), 'Actividades con avance 0%', 'blue']
+];
 const types=['completed','due','late','zero'];
 const grid=document.getElementById('kpiGrid'); 
 if(grid) grid.innerHTML=cards.map((c,i)=>`<article class="kpi-card ${c[3]}" data-kpi="${types[i]}"><p>${c[0]}</p><strong>${c[1]}</strong><small>${c[2]}</small></article>`).join(''); 
