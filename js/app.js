@@ -159,37 +159,52 @@ if(pdfBtn){
 
     const dashboard=document.querySelector('.main');
 
-    const canvas=await html2canvas(dashboard,{
-      scale:2,
-      useCORS:true,
-      backgroundColor:"#ffffff",
-      scrollY:-window.scrollY
-    });
+document.body.classList.add('pdf-mode');
 
-    const { jsPDF }=window.jspdf;
+await new Promise(resolve=>setTimeout(resolve,300));
 
-    const pdf=new jsPDF({
-      orientation:"landscape",
-      unit:"mm",
-      format:"a4"
-    });
+const canvas=await html2canvas(dashboard,{
+  scale:3,
+  useCORS:true,
+  backgroundColor:"#ffffff",
+  windowWidth:1600,
+  scrollX:0,
+  scrollY:0
+});
 
-    const pageWidth=297;
-    const pageHeight=210;
+document.body.classList.remove('pdf-mode');
 
-    const imgWidth=pageWidth;
-    const imgHeight=canvas.height*imgWidth/canvas.width;
+const { jsPDF }=window.jspdf;
 
-    pdf.addImage(
-      canvas.toDataURL("image/png"),
-      "PNG",
-      0,
-      0,
-      imgWidth,
-      imgHeight
-    );
+const pdf=new jsPDF({
+  orientation:"landscape",
+  unit:"mm",
+  format:"a4",
+  compress:true
+});
 
-    pdf.save("Plan_de_Trabajo_UEC.pdf");
+const pageWidth=297;
+const pageHeight=210;
+
+const margin=6;
+const usableWidth=pageWidth-(margin*2);
+const usableHeight=pageHeight-(margin*2);
+
+const imgWidth=usableWidth;
+const imgHeight=canvas.height*imgWidth/canvas.width;
+
+const finalHeight=Math.min(imgHeight,usableHeight);
+
+pdf.addImage(
+  canvas.toDataURL("image/jpeg",0.98),
+  "JPEG",
+  margin,
+  margin,
+  imgWidth,
+  finalHeight
+);
+
+window.open(pdf.output("bloburl"),"_blank");
 
   };
 
