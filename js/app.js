@@ -152,9 +152,48 @@ async function boot(){
   if(back) back.onclick = hideDepartmentDetail;
 
   const pdfBtn = document.getElementById('pdfBtn');
-  if(pdfBtn){
-    pdfBtn.onclick = () => window.print();
-  }
+
+if(pdfBtn){
+
+  pdfBtn.onclick = async()=>{
+
+    const dashboard=document.querySelector('.main');
+
+    const canvas=await html2canvas(dashboard,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:"#ffffff",
+      scrollY:-window.scrollY
+    });
+
+    const { jsPDF }=window.jspdf;
+
+    const pdf=new jsPDF({
+      orientation:"landscape",
+      unit:"mm",
+      format:"a4"
+    });
+
+    const pageWidth=297;
+    const pageHeight=210;
+
+    const imgWidth=pageWidth;
+    const imgHeight=canvas.height*imgWidth/canvas.width;
+
+    pdf.addImage(
+      canvas.toDataURL("image/png"),
+      "PNG",
+      0,
+      0,
+      imgWidth,
+      imgHeight
+    );
+
+    window.open(pdf.output("bloburl"),"_blank");
+
+  };
+
+}
 
   const closeModal = document.getElementById('closeKpiModal');
   if(closeModal){
