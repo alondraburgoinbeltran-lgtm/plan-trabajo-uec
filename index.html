@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistema de Seguimiento del Plan de Trabajo UEC</title>
+  <meta name="description" content="Seguimiento institucional de actividades, metas, avances y estatus operativo de la UEC." />
+  <meta name="theme-color" content="#00584b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Plan UEC" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sistema de Seguimiento del Plan de Trabajo UEC" />
+  <meta property="og:description" content="Seguimiento institucional de actividades, metas, avances y estatus operativo." />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sistema de Seguimiento del Plan de Trabajo UEC" />
+  <meta name="twitter:description" content="Seguimiento institucional de actividades, metas, avances y estatus operativo." />
+  <meta name="twitter:image" content="assets/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/charts.css" />
+  <link rel="stylesheet" href="css/tables.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <div id="login" class="login-screen">
+    <div class="login-card">
+      <img src="assets/logo.png" alt="UEC ASE" />
+      <p class="eyebrow">PLAN DE TRABAJO UEC</p>
+      <h1>Sistema de Seguimiento del Plan de Trabajo UEC</h1>
+      <p>Seguimiento institucional de actividades, metas, avances y estatus operativo.</p>
+      <input id="passwordInput" type="password" placeholder="Contraseña" autocomplete="current-password" />
+      <button id="loginBtn">Ingresar</button>
+      <small id="loginError"></small>
+    </div>
+  </div>
+
+  <div id="app" class="app-shell hidden">
+    <main class="main">
+      <header class="topbar compact-topbar">
+        <div class="brand-title">
+          <img src="assets/logo.png" alt="Logo UEC" />
+          <div>
+            <p class="eyebrow">Dashboard institucional</p>
+            <h1>Plan de Trabajo UEC</h1>
+            <span>Seguimiento institucional de actividades, metas, avances y estatus operativo.</span>
+          </div>
+        </div>
+        <section class="filters-panel compact-filters" aria-label="Filtros principales">
+          <div class="filter-group year-filter">
+            <label>Ejercicio fiscal</label>
+            <button id="yearBtn" class="dropdown-btn">Todos ▾</button>
+            <div id="yearMenu" class="dropdown-menu"></div>
+          </div>
+          <div class="filter-group">
+            <label>Programa</label>
+            <select id="programFilter"><option value="">Todos</option></select>
+          </div>
+          <button id="clearFilters" class="clear-btn">Limpiar</button>
+        </section>
+      </header>
+
+      <div class="advanced-filter-store" aria-hidden="true">
+        <select id="departmentFilter"><option value="">Todos</option></select>
+        <select id="areaFilter"><option value="">Todos</option></select>
+        <select id="statusFilter"><option value="">Todos</option></select>
+        <select id="goalFilter"><option value="">Todas</option></select>
+      </div>
+
+      <section class="level level-one" id="vistaGeneral">
+        <article class="gauge-card">
+          <div class="gauge-copy">
+            <p class="eyebrow">Vista general</p>
+            <h2>Avance promedio general</h2>
+            <p>Medición consolidada del avance institucional conforme a los filtros seleccionados.</p>
+          </div>
+          <div class="gauge-wrap">
+            <canvas id="gaugeChart"></canvas>
+            <div class="gauge-number"><strong id="gaugeValue">0%</strong><span>avance</span></div>
+          </div>
+        </article>
+
+        <div id="goalCalendar" class="goal-calendar"></div>
+        <div id="kpiGrid" class="kpi-grid four"></div>
+        <div id="trafficSummary" class="traffic-summary"></div>
+      </section>
+
+      <section class="level level-two" id="departamentos">
+        <div class="section-heading">
+          <p class="eyebrow">Nivel 2</p>
+          <h2>Avance por Departamento</h2>
+          <span>Selecciona un departamento para ver el detalle por área, estatus y actividades críticas.</span>
+        </div>
+        <div id="departmentCards" class="department-grid"></div>
+      </section>
+
+      <section class="level level-three hidden" id="departmentDetail">
+        <div class="detail-toolbar">
+          <div>
+            <p id="breadcrumb" class="breadcrumb">General &gt; Departamento</p>
+            <h2 id="detailTitle">Detalle de Departamento</h2>
+          </div>
+          <button id="backToGeneral" class="clear-btn secondary">Volver a vista general</button>
+        </div>
+        <div class="detail-grid">
+          <article class="chart-card">
+            <h2>Avance por Área</h2>
+            <div id="areaMiniBars" class="mini-bars"></div>
+          </article>
+          <article class="chart-card">
+            <h2>Distribución de estatus</h2>
+            <canvas id="deptStatusChart"></canvas>
+          </article>
+        </div>
+        <article class="table-card">
+          <h2>Actividades críticas del departamento</h2>
+          <div id="criticalTable"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/config.js"></script><script src="js/utils.js"></script><script src="js/api.js"></script><script src="js/filters.js"></script><script src="js/kpis.js"></script><script src="js/charts.js"></script><script src="js/table.js"></script><script src="js/sections.js"></script><script src="js/app.js"></script>
+</body>
+</html>
