@@ -35,7 +35,6 @@ function renderGoalCalendar(rows){
   el.innerHTML=`
     <div class="goal-calendar-head">
       <h2>Vencimientos por meta</h2>
-      <span>Selecciona un mes para ver sus actividades</span>
     </div>
     <div class="goal-months">
       ${keys.map(k=>`<button class="goal-month" type="button" data-goal="${escapeHtml(k)}" aria-label="Ver actividades de ${escapeHtml(k)}"><span>${escapeHtml(k)}</span><strong>${Utils.fmt(grouped[k].length)}</strong><small>actividades</small></button>`).join('')}
@@ -171,3 +170,71 @@ async function loadDashboard(){
 }
 document.addEventListener('DOMContentLoaded', boot);
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+
+.goal-calendar{
+  align-items:stretch;
+}
+
+.goal-calendar-head{
+  width:100%;
+  text-align:left;
+}
+
+.goal-calendar-head h2{
+  margin:0;
+  font-size:20px;
+  font-weight:600;
+  color:var(--navy);
+}
+
+.goal-months{
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:12px;
+  width:100%;
+}
+
+.goal-month{
+  min-width:0;
+  height:92px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:white;
+  box-shadow:0 10px 24px rgba(12,35,31,.06);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+}
+
+.goal-month span{
+  font-size:12px;
+  font-weight:700;
+  color:var(--navy);
+}
+
+.goal-month strong{
+  font-size:22px;
+  font-weight:700;
+  color:var(--navy);
+  margin:4px 0;
+}
+
+.goal-month small{
+  font-size:11px;
+  color:var(--muted);
+}
+
+@media (max-width:900px){
+  .goal-months{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+}
+
+@media (max-width:520px){
+  .goal-months{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
