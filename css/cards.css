@@ -244,13 +244,13 @@
   appearance:none;
   border:1px solid var(--line);
   background:linear-gradient(180deg,#fff,#fbf8f0);
-  border-radius:18px;
-  padding:14px 12px;
+  border-radius:16px;
+  padding:10px 6px;
   text-align:center;
-  min-height:94px;
+  min-height:82px;
   display:grid;
   align-content:center;
-  gap:5px;
+  gap:3px;
   cursor:pointer;
   font-family:inherit;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
@@ -265,7 +265,7 @@
 }
 
 .goal-month span{
-  font-size:11px;
+  font-size:10px;
   font-weight:700;
   color:var(--muted);
   letter-spacing:.06em;
@@ -274,7 +274,7 @@
 }
 
 .goal-month strong{
-  font-size:30px;
+  font-size:24px;
   line-height:1;
   font-weight:700;
   color:var(--navy);
@@ -282,7 +282,7 @@
 
 .goal-month small{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
   font-weight:600;
 }
 
