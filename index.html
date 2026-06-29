@@ -53,24 +53,24 @@
   <div id="app" class="app-shell hidden">
     <main class="main">
 
-      <header class="topbar compact-topbar">
-        <div class="header-left">
+      <header class="topbar dashboard-header">
+        <div class="header-identity">
           <img src="assets/logo.png" alt="Logo UEC" />
+          <div class="header-title-block">
+            <p class="header-kicker">Sistema de Seguimiento</p>
+            <h1>Plan de Trabajo UEC</h1>
+            <span>Seguimiento institucional de actividades, metas, avances y estatus operativo.</span>
+          </div>
         </div>
 
-        <div class="header-center">
-          <h1>Plan de Trabajo UEC</h1>
-          <span>Seguimiento institucional de actividades, metas, avances y estatus operativo.</span>
-        </div>
-
-        <section class="filters-panel compact-filters" aria-label="Filtros principales">
-          <div class="filter-group year-filter">
+        <section class="filters-panel primary-filters" aria-label="Filtros principales">
+          <div class="filter-chip year-filter">
             <label>Ejercicio Fiscal</label>
             <button id="yearBtn" class="dropdown-btn">Todos ▾</button>
             <div id="yearMenu" class="dropdown-menu"></div>
           </div>
 
-          <div class="filter-group">
+          <div class="filter-chip">
             <label>Departamento</label>
             <select id="departmentFilter">
               <option value="">Todos</option>
@@ -81,20 +81,35 @@
         </section>
       </header>
 
-      <div class="advanced-filter-store" aria-hidden="true">
-        <select id="programFilter">
-          <option value="">Todos</option>
-        </select>
-        <select id="areaFilter">
-          <option value="">Todos</option>
-        </select>
-        <select id="statusFilter">
-          <option value="">Todos</option>
-        </select>
-        <select id="goalFilter">
-          <option value="">Todas</option>
-        </select>
-      </div>
+      <section class="secondary-filter-bar" aria-label="Filtros de detalle">
+        <div class="filter-chip slim">
+          <label>Programa</label>
+          <select id="programFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="filter-chip slim">
+          <label>Área</label>
+          <select id="areaFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="filter-chip slim">
+          <label>Estatus</label>
+          <select id="statusFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="filter-chip slim">
+          <label>Meta</label>
+          <select id="goalFilter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+      </section>
 
       <section class="level level-one" id="vistaGeneral">
         <article class="gauge-card">
@@ -161,11 +176,11 @@
         <div class="modal-box">
           <div class="modal-head">
             <div>
-              <p class="eyebrow">Detalle de actividades</p>
+              <p id="kpiModalEyebrow" class="eyebrow">Detalle de actividades</p>
               <h2 id="kpiModalTitle">Actividades</h2>
             </div>
 
-            <button id="closeKpiModal" class="modal-close">×</button>
+            <button id="closeKpiModal" class="modal-close" aria-label="Cerrar">×</button>
           </div>
 
           <div id="kpiModalBody"></div>
