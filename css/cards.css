@@ -16,3 +16,12 @@
 .goal-month{border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbf8f0);border-radius:16px;padding:11px 10px;text-align:center;min-height:78px;display:grid;align-content:center;gap:5px}
 .goal-month span{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .goal-month strong{font-size:26px;font-weight:700;color:var(--navy)}
+.kpi-card{
+  cursor:pointer;
+}
+
+.kpi-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(0,88,75,.35);
+  box-shadow:0 20px 55px rgba(12,35,31,.14)
+}
