@@ -27,11 +27,40 @@ function renderGoalCalendar(rows){
   el.innerHTML=`<div class="goal-calendar-head"><p class="eyebrow">Vencimientos por meta</p><strong>Mini-calendario horizontal</strong></div><div class="goal-months">${keys.map(k=>`<article class="goal-month"><span>${escapeHtml(k)}</span><strong>${Utils.fmt(grouped[k].length)}</strong></article>`).join('')}</div>`;
 }
 
+function getKpiRows(type, rows){
+  if(type==='completed') return rows.filter(Kpis.isCompleted);
+  if(type==='due') return rows.filter(r=>Utils.normalize(r.status).includes('porvencer'));
+  if(type==='late') return rows.filter(r=>Utils.normalize(r.status).includes('fueradetiempo'));
+  if(type==='zero') return rows.filter(r=>Kpis.progressValue(r)===0);
+  return [];
+}
+
+function openKpiModal(type){
+  const rows=Filters.apply(ALL_ROWS);
+  const filtered=getKpiRows(type, rows);
+  const titles={
+    completed:'Actividades completadas',
+    due:'Actividades por vencer',
+    late:'Actividades fuera de tiempo',
+    zero:'Actividades sin avance reportado'
+  };
+
+  document.getElementById('kpiModalTitle').textContent=titles[type] || 'Actividades';
+  document.getElementById('kpiModal').classList.remove('hidden');
+  Tables.renderTable(filtered,'kpiModalBody');
+}
+
+function bindKpiCards(){
+  document.querySelectorAll('.kpi-card[data-kpi]').forEach(card=>{
+    card.onclick=()=>openKpiModal(card.dataset.kpi);
+  });
+}
+
 function renderDepartmentCards(rows){
   const el=document.getElementById('departmentCards');
   if(!el) return;
   const data=avgBy(rows,r=>r.department || 'Sin departamento');
-  const order=['JURÍDICO','TITULAR','AUDITORÍA'];
+  const order=['TITULAR','JURÍDICO','AUDITORÍA'];
   const departments=order.map(name=>data.find(d=>Utils.normalize(d.label)===Utils.normalize(name)) || {label:name,items:[],value:0});
   if(!rows.length){ el.innerHTML='<div class="empty-state">No hay departamentos con los filtros seleccionados.</div>'; return; }
   el.innerHTML=departments.map((d,i)=>`<article class="department-card gauge-dept ${ACTIVE_DEPARTMENT===d.label?'active':''}" data-department="${escapeHtml(d.label)}" tabindex="0" role="button" aria-label="Ver detalle de ${escapeHtml(d.label)}"><h3>${escapeHtml(d.label)}</h3><div class="dept-gauge-wrap"><canvas id="deptGauge${i}"></canvas><div class="dept-gauge-number"><strong>${Utils.fmtPct(d.value)}</strong><span>avance</span></div></div><div class="department-meta"><span>${Utils.fmt(d.items.length)} actividades</span><strong>${Utils.fmtPct(d.value)}</strong></div></article>`).join('');
@@ -74,6 +103,7 @@ function hideDepartmentDetail(){
 function render(){
   const rows=Filters.apply(ALL_ROWS);
   Kpis.render(rows);
+  bindKpiCards();
   Charts.render(rows);
   renderGoalCalendar(rows);
   renderDepartmentCards(rows);
@@ -87,6 +117,13 @@ async function boot(){
   Sections.init();
   const back=document.getElementById('backToGeneral');
   if(back) back.onclick=hideDepartmentDetail;
+  const closeModal=document.getElementById('closeKpiModal');
+if(closeModal) closeModal.onclick=()=>document.getElementById('kpiModal').classList.add('hidden');
+
+const modal=document.getElementById('kpiModal');
+if(modal) modal.addEventListener('click',e=>{
+  if(e.target.id==='kpiModal') modal.classList.add('hidden');
+});
   const isLogged=sessionStorage.getItem('uec_auth')==='true';
   if(isLogged){ document.getElementById('login').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); await loadDashboard(); }
   document.getElementById('loginBtn').onclick=async()=>{
