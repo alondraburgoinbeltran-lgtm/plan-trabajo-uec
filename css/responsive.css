@@ -127,3 +127,294 @@
 .pdf-mode .section-heading{
   padding:12px!important;
 }
+
+/* =========================================================
+   AJUSTES RESPONSIVE SEGUROS - MÓVIL/TABLET
+   Solo se activan por debajo de 900px para no romper escritorio
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+img,
+canvas,
+svg{
+  max-width:100%;
+}
+
+@media (max-width: 900px){
+
+  .app-shell{
+    padding:10px;
+  }
+
+  .main{
+    width:100%;
+    padding:0;
+    gap:14px;
+  }
+
+  /* Header principal */
+  .dashboard-header{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    min-height:auto;
+    padding:14px;
+    border-radius:22px;
+  }
+
+  .header-identity{
+    grid-template-columns:64px minmax(0,1fr);
+    gap:12px;
+    align-items:center;
+  }
+
+  .header-identity img{
+    width:62px;
+    height:62px;
+  }
+
+  .header-title-block h1{
+    font-size:22px;
+    line-height:1.12;
+  }
+
+  .header-title-block span{
+    font-size:12px;
+    line-height:1.3;
+  }
+
+  .header-kicker{
+    font-size:10px;
+  }
+
+  .primary-filters{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .secondary-filter-bar{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    padding:10px;
+    border-radius:20px;
+  }
+
+  .filter-chip,
+  .clear-btn{
+    min-height:56px;
+  }
+
+  .dropdown-menu{
+    left:0;
+    right:auto;
+    min-width:100%;
+  }
+
+  /* Tarjetas y bloques */
+  .gauge-card{
+    grid-template-columns:1fr;
+    padding:18px;
+    border-radius:22px;
+    gap:12px;
+  }
+
+  .gauge-copy h2{
+    font-size:24px;
+  }
+
+  .gauge-wrap{
+    min-height:190px;
+  }
+
+  .gauge-wrap canvas{
+    height:190px!important;
+    max-width:320px;
+  }
+
+  .gauge-number{
+    bottom:20px;
+  }
+
+  .gauge-number strong{
+    font-size:38px;
+  }
+
+  .kpi-grid.three,
+  .kpi-grid.four,
+  .department-grid,
+  .traffic-summary,
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  .kpi-card,
+  .department-card,
+  .chart-card,
+  .table-card,
+  .goal-calendar{
+    border-radius:20px;
+    padding:16px;
+  }
+
+  .section-heading{
+    border-radius:20px;
+    padding:15px;
+  }
+
+  .section-heading h2{
+    font-size:21px;
+  }
+
+  .goal-calendar-head{
+    display:block;
+  }
+
+  .goal-calendar-head h2{
+    font-size:20px;
+  }
+
+  .goal-months{
+    grid-auto-columns:104px;
+  }
+
+  .department-card.gauge-dept{
+    min-height:235px;
+  }
+
+  .dept-gauge-wrap{
+    height:135px;
+  }
+
+  .chart-card canvas{
+    min-height:240px;
+  }
+
+  .detail-toolbar{
+    display:grid;
+    grid-template-columns:1fr;
+    align-items:start;
+    padding:16px;
+    border-radius:20px;
+  }
+
+  .modal{
+    padding:10px;
+  }
+
+  .modal-box{
+    max-height:88vh;
+    border-radius:20px;
+    padding:16px;
+  }
+}
+
+@media (max-width: 560px){
+
+  .app-shell{
+    padding:8px;
+  }
+
+  .dashboard-header{
+    padding:12px;
+    border-radius:20px;
+  }
+
+  .header-identity{
+    grid-template-columns:54px minmax(0,1fr);
+    gap:10px;
+  }
+
+  .header-identity img{
+    width:52px;
+    height:52px;
+  }
+
+  .header-title-block h1{
+    font-size:19px;
+  }
+
+  .header-title-block span{
+    font-size:11.5px;
+  }
+
+  .primary-filters,
+  .secondary-filter-bar{
+    grid-template-columns:1fr;
+  }
+
+  .clear-btn{
+    height:52px;
+  }
+
+  .filter-chip select,
+  .dropdown-btn{
+    height:34px;
+    font-size:14px;
+  }
+
+  .gauge-card{
+    padding:16px;
+  }
+
+  .gauge-copy h2{
+    font-size:22px;
+  }
+
+  .gauge-copy p{
+    font-size:13px;
+  }
+
+  .gauge-wrap{
+    min-height:175px;
+  }
+
+  .gauge-wrap canvas{
+    height:175px!important;
+  }
+
+  .gauge-number strong{
+    font-size:34px;
+  }
+
+  .kpi-card strong{
+    font-size:30px;
+  }
+
+  .department-card.gauge-dept h3{
+    font-size:18px;
+  }
+
+  .dept-gauge-number strong{
+    font-size:30px;
+  }
+
+  .mini-bar-row{
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+
+  .mini-bar-row strong{
+    text-align:left;
+  }
+
+  .table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  table{
+    min-width:760px;
+  }
+}
