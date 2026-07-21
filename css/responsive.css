@@ -418,3 +418,65 @@ svg{
     min-width:760px;
   }
 }
+/* =========================================================
+   CORRECCIÓN MÓVIL — VENCIMIENTOS POR META
+   No modifica la vista de computadora
+========================================================= */
+
+@media (max-width: 620px){
+
+  .goal-calendar{
+    width:100%;
+    padding:16px;
+    overflow:hidden;
+  }
+
+  /* Evita que la regla general de layout divida el título */
+  .goal-calendar > .goal-calendar-head{
+    display:block;
+    width:100%;
+  }
+
+  .goal-calendar-head h2{
+    margin:0;
+    font-size:20px;
+    line-height:1.2;
+    white-space:normal;
+  }
+
+  /* Carrusel horizontal únicamente en celular */
+  .goal-calendar > .goal-months{
+    display:grid;
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:110px;
+    gap:10px;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:2px 2px 10px;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .goal-month{
+    width:110px;
+    min-width:110px;
+    min-height:88px;
+    padding:10px 6px;
+    scroll-snap-align:start;
+  }
+
+  .goal-month span{
+    font-size:10px;
+    white-space:nowrap;
+  }
+
+  .goal-month strong{
+    font-size:24px;
+  }
+
+  .goal-month small{
+    font-size:10px;
+  }
+}
