@@ -2,6 +2,33 @@ let ALL_ROWS=[];
 let ACTIVE_DEPARTMENT='';
 let GOAL_GROUPS={};
 
+function updateLastUpdateNote(){
+  const now = new Date();
+
+  const dateElement = document.getElementById('lastUpdateDate');
+  const timeElement = document.getElementById('lastUpdateTime');
+
+  const formattedDate = new Intl.DateTimeFormat('es-MX',{
+    day:'2-digit',
+    month:'2-digit',
+    year:'numeric'
+  }).format(now);
+
+  const formattedTime = new Intl.DateTimeFormat('es-MX',{
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:false
+  }).format(now);
+
+  if(dateElement){
+    dateElement.textContent = formattedDate;
+  }
+
+  if(timeElement){
+    timeElement.textContent = `${formattedTime} h`;
+  }
+}
+
 function escapeHtml(v){
   return String(v ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 }
@@ -232,8 +259,24 @@ if(modal) modal.addEventListener('click',e=>{
   document.getElementById('passwordInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginBtn').click();});
 }
 async function loadDashboard(){
-  try { ALL_ROWS = await Api.load(); Filters.init(ALL_ROWS, render); render(); }
-  catch(e){ console.error(e); document.querySelector('.main').insertAdjacentHTML('afterbegin',`<div class="table-card"><b>No se pudieron cargar los datos.</b><br>Verifica permisos del Apps Script o que la hoja esté publicada.</div>`); }
+  try{
+    ALL_ROWS = await Api.load();
+
+    Filters.init(ALL_ROWS, render);
+    render();
+
+    updateLastUpdateNote();
+  }catch(e){
+    console.error(e);
+
+    document.querySelector('.main').insertAdjacentHTML(
+      'afterbegin',
+      `<div class="table-card">
+        <b>No se pudieron cargar los datos.</b><br>
+        Verifica permisos del Apps Script o que la hoja esté publicada.
+      </div>`
+    );
+  }
 }
 document.addEventListener('DOMContentLoaded', boot);
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
