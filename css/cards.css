@@ -49,25 +49,25 @@
 /* Completadas */
 .kpi-card.green:before{
   background:#219E18;
-  opacity:.45;
+  opacity: 1;
 }
 
 /* Por vencer */
 .kpi-card.yellow:before{
   background:#FCFF4D;
-  opacity:.65;
+  opacity: 1;
 }
 
 /* Fuera de tiempo */
 .kpi-card.red:before{
   background:#E0313F;
-  opacity:.45;
+  opacity: 1;
 }
 
 /* Sin avance reportado */
 .kpi-card.blue:before{
   background:#31BDE0;
-  opacity:.45;
+  opacity: 1;
 }
 
 .kpi-card:hover{
